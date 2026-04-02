@@ -11,9 +11,9 @@
   --primary-light: #A62222;
   --accent: #D4A24C;
   --accent-dark: #B8872E;
-  --btn: #D4A24C;
-  --btn-hover: #C49040;
-  --btn-text: #111318;
+  --btn: #8B1A1A;
+  --btn-hover: #A62222;
+  --btn-text: #FFFFFF;
   --secondary: #2C3E50;
   --secondary-dark: #1A252F;
   --dark: #111318;
@@ -96,13 +96,13 @@ h1, h2, h3, h4 {
   border: none;
   cursor: pointer;
   transition: all var(--transition);
-  box-shadow: 0 4px 20px rgba(212, 162, 76, 0.45);
+  box-shadow: 0 4px 20px rgba(139, 26, 26, 0.45);
 }
 
 .btn-primary:hover {
   background: var(--btn-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(212, 162, 76, 0.6);
+  box-shadow: 0 8px 30px rgba(139, 26, 26, 0.6);
 }
 
 .btn-outline {

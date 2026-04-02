@@ -12,6 +12,7 @@ const REVIEWS_DATA = [
     initials: "MS",
     date: "vor 2 Wochen",
     rating: 5,
+    service: "Kellerentrümpelung",
     text: "Absolut zuverlässig! Die Entrümpelung unseres Kellers wurde schnell und sauber erledigt. Der Preis war fair und es gab keine versteckten Kosten. Sehr empfehlenswert!"
   },
   {
@@ -19,6 +20,7 @@ const REVIEWS_DATA = [
     initials: "TM",
     date: "vor 1 Monat",
     rating: 5,
+    service: "Haushaltsauflösung",
     text: "Nach dem Tod meiner Mutter brauchten wir Hilfe bei der Haushaltsauflösung. Frau Sachs und ihr Team waren einfühlsam und professionell. Alles wurde sorgfältig behandelt."
   },
   {
@@ -26,6 +28,7 @@ const REVIEWS_DATA = [
     initials: "SW",
     date: "vor 3 Wochen",
     rating: 5,
+    service: "Dachbodenräumung",
     text: "Top Service! Dachboden komplett geräumt und anschließend besenrein übergeben. Termingerecht und zu einem fairen Festpreis. Kann ich nur weiterempfehlen."
   },
   {
@@ -33,6 +36,7 @@ const REVIEWS_DATA = [
     initials: "KF",
     date: "vor 2 Monaten",
     rating: 5,
+    service: "Entrümpelung & Renovierung",
     text: "Wir haben Flotte Helfer für die Entrümpelung und anschließende Renovierung unserer Mietwohnung beauftragt. Alles aus einer Hand - super praktisch und das Ergebnis war einwandfrei."
   },
   {
@@ -40,6 +44,7 @@ const REVIEWS_DATA = [
     initials: "AH",
     date: "vor 1 Monat",
     rating: 5,
+    service: "Entrümpelung",
     text: "Schnelle Reaktion auf unsere Anfrage und sofortige Besichtigung. Das Angebot war transparent und der Preis wurde genau eingehalten. Sehr professionelles Team!"
   },
   {
@@ -47,6 +52,7 @@ const REVIEWS_DATA = [
     initials: "MB",
     date: "vor 3 Monaten",
     rating: 5,
+    service: "Sperrmüllentsorgung",
     text: "Haben unseren gesamten Sperrmüll abholen lassen. Pünktlich, freundlich und haben sogar noch die Garage gefegt. Besser geht es nicht. Vielen Dank!"
   },
   {
@@ -54,6 +60,7 @@ const REVIEWS_DATA = [
     initials: "PW",
     date: "vor 6 Wochen",
     rating: 4,
+    service: "Kellerentrümpelung",
     text: "Gute Arbeit bei der Kellerentrümpelung. Das Team war fleißig und hat alles ordentlich entsorgt. Einziger Punkt: Der Termin hat sich um eine Stunde verzögert. Sonst top!"
   },
   {
@@ -61,6 +68,7 @@ const REVIEWS_DATA = [
     initials: "HB",
     date: "vor 2 Monaten",
     rating: 5,
+    service: "Demontage & Entsorgung",
     text: "Wir haben mehrere Angebote eingeholt und Flotte Helfer hatte das beste Preis-Leistungs-Verhältnis. Die Demontage der alten Einbauküche war in zwei Stunden erledigt. Sehr zufrieden!"
   },
   {
@@ -68,6 +76,7 @@ const REVIEWS_DATA = [
     initials: "US",
     date: "vor 1 Woche",
     rating: 5,
+    service: "Haushaltsauflösung",
     text: "Perfekte Haushaltsauflösung! Alles wurde sortiert, verwertbare Dinge angerechnet und der Rest fachgerecht entsorgt. Frau Sachs ist wirklich ein Profi auf ihrem Gebiet."
   }
 ];
@@ -249,6 +258,7 @@ function renderReviews() {
         <div class="review-avatar">${review.initials}</div>
         <div>
           <div class="review-name">${review.name}</div>
+          <div class="review-service">${review.service}</div>
           <div class="review-date">${review.date}</div>
         </div>
       </div>

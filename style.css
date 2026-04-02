@@ -449,7 +449,7 @@ h1, h2, h3, h4 {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.pexels.com/photos/9301252/pexels-photo-9301252.jpeg?auto=compress&cs=tinysrgb&w=1920');
+  background-image: url('https://images.pexels.com/photos/7464687/pexels-photo-7464687.jpeg?auto=compress&cs=tinysrgb&w=1920');
   background-size: cover;
   background-position: center top;
   transform: scale(1.05);
@@ -836,9 +836,9 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: rgba(139, 26, 26, 0.15);
+  background: rgba(212, 162, 76, 0.15);
   border-radius: 10px;
-  color: var(--primary);
+  color: var(--accent);
   flex-shrink: 0;
   margin-top: 2px;
 }

@@ -285,7 +285,7 @@ h1, h2, h3, h4 {
 }
 
 .logo-img {
-  height: 46px;
+  height: 34px;
   width: auto;
   object-fit: contain;
   transition: transform var(--transition);
@@ -1289,7 +1289,7 @@ h1, h2, h3, h4 {
 }
 
 .footer-logo .logo-img {
-  height: 56px;
+  height: 44px;
   width: auto;
   filter: brightness(1.1);
 }

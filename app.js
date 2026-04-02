@@ -12,28 +12,28 @@ const REVIEWS_DATA = [
     initials: "MS",
     date: "vor 2 Wochen",
     rating: 5,
-    text: "Absolut zuverlaessig! Die Entruempelung unseres Kellers wurde schnell und sauber erledigt. Der Preis war fair und es gab keine versteckten Kosten. Sehr empfehlenswert!"
+    text: "Absolut zuverlässig! Die Entrümpelung unseres Kellers wurde schnell und sauber erledigt. Der Preis war fair und es gab keine versteckten Kosten. Sehr empfehlenswert!"
   },
   {
     name: "Thomas Mueller",
     initials: "TM",
     date: "vor 1 Monat",
     rating: 5,
-    text: "Nach dem Tod meiner Mutter brauchten wir Hilfe bei der Haushaltsaufloesung. Frau Sachs und ihr Team waren einfuehlsam und professionell. Alles wurde sorgfaeltig behandelt."
+    text: "Nach dem Tod meiner Mutter brauchten wir Hilfe bei der Haushaltsauflösung. Frau Sachs und ihr Team waren einfühlsam und professionell. Alles wurde sorgfältig behandelt."
   },
   {
     name: "Sabine Weber",
     initials: "SW",
     date: "vor 3 Wochen",
     rating: 5,
-    text: "Top Service! Dachboden komplett geraeumt und anschliessend besenrein uebergeben. Termingerecht und zu einem fairen Festpreis. Kann ich nur weiterempfehlen."
+    text: "Top Service! Dachboden komplett geräumt und anschließend besenrein übergeben. Termingerecht und zu einem fairen Festpreis. Kann ich nur weiterempfehlen."
   },
   {
     name: "Klaus Fischer",
     initials: "KF",
     date: "vor 2 Monaten",
     rating: 5,
-    text: "Wir haben Flotte Helfer fuer die Entruempelung und anschliessende Renovierung unserer Mietwohnung beauftragt. Alles aus einer Hand - super praktisch und das Ergebnis war einwandfrei."
+    text: "Wir haben Flotte Helfer für die Entrümpelung und anschließende Renovierung unserer Mietwohnung beauftragt. Alles aus einer Hand - super praktisch und das Ergebnis war einwandfrei."
   },
   {
     name: "Andrea Hoffmann",
@@ -47,65 +47,95 @@ const REVIEWS_DATA = [
     initials: "MB",
     date: "vor 3 Monaten",
     rating: 5,
-    text: "Haben unseren gesamten Sperr muell abholen lassen. Puenktlich, freundlich und haben sogar noch die Garage gefegt. Besser geht es nicht. Vielen Dank!"
+    text: "Haben unseren gesamten Sperrmüll abholen lassen. Pünktlich, freundlich und haben sogar noch die Garage gefegt. Besser geht es nicht. Vielen Dank!"
   },
   {
     name: "Petra Wagner",
     initials: "PW",
     date: "vor 6 Wochen",
     rating: 4,
-    text: "Gute Arbeit bei der Kellerentruempelung. Das Team war fleissig und hat alles ordentlich entsorgt. Einziger Punkt: Der Termin hat sich um eine Stunde verzoegert. Sonst top!"
+    text: "Gute Arbeit bei der Kellerentrümpelung. Das Team war fleißig und hat alles ordentlich entsorgt. Einziger Punkt: Der Termin hat sich um eine Stunde verzögert. Sonst top!"
   },
   {
-    name: "Hans-Juergen Becker",
+    name: "Hans-Jürgen Becker",
     initials: "HB",
     date: "vor 2 Monaten",
     rating: 5,
-    text: "Wir haben mehrere Angebote eingeholt und Flotte Helfer hatte das beste Preis-Leistungs-Verhaeltnis. Die Demontage der alten Einbaukueche war in zwei Stunden erledigt. Sehr zufrieden!"
+    text: "Wir haben mehrere Angebote eingeholt und Flotte Helfer hatte das beste Preis-Leistungs-Verhältnis. Die Demontage der alten Einbauküche war in zwei Stunden erledigt. Sehr zufrieden!"
   },
   {
     name: "Ulrike Schulz",
     initials: "US",
     date: "vor 1 Woche",
     rating: 5,
-    text: "Perfekte Haushaltsaufloesung! Alles wurde sortiert, verwertbare Dinge angerechnet und der Rest fachgerecht entsorgt. Frau Sachs ist wirklich ein Profi auf ihrem Gebiet."
+    text: "Perfekte Haushaltsauflösung! Alles wurde sortiert, verwertbare Dinge angerechnet und der Rest fachgerecht entsorgt. Frau Sachs ist wirklich ein Profi auf ihrem Gebiet."
   }
 ];
 
 const FAQS_DATA = [
   {
-    question: "Was kostet eine Entruempelung?",
-    answer: "Die Kosten haengen von der Groesse und dem Umfang der Raeumung ab. Unsere Preise beginnen ab 499 Euro fuer kleine Raeumungen. Wir bieten eine kostenlose Vor-Ort-Besichtigung an und erstellen ein verbindliches Festpreisangebot ohne versteckte Kosten."
+    question: "Was kostet eine Entrümpelung?",
+    answer: "Die Kosten hängen von der Größe und dem Umfang der Räumung ab. Unsere Preise beginnen ab 499 Euro für kleine Räumungen. Wir bieten eine kostenlose Vor-Ort-Besichtigung an und erstellen ein verbindliches Festpreisangebot ohne versteckte Kosten."
   },
   {
     question: "Bieten Sie eine kostenlose Besichtigung an?",
-    answer: "Ja! Wir bieten eine kostenlose und unverbindliche Vor-Ort-Besichtigung an. Dabei schaetzen wir den Umfang der Arbeit ein und erstellen Ihnen ein verbindliches Festpreisangebot."
+    answer: "Ja! Wir bieten eine kostenlose und unverbindliche Vor-Ort-Besichtigung an. Dabei schätzen wir den Umfang der Arbeit ein und erstellen Ihnen ein verbindliches Festpreisangebot."
   },
   {
-    question: "Wie schnell koennen Sie den Auftrag ausfuehren?",
-    answer: "In der Regel koennen wir innerhalb von 48 Stunden nach Auftragserteilung mit der Arbeit beginnen. Bei dringenden Faellen ist auch ein kurzfristiger Einsatz moeglich. Kontaktieren Sie uns einfach."
+    question: "Wie schnell können Sie den Auftrag ausführen?",
+    answer: "In der Regel können wir innerhalb von 48 Stunden nach Auftragserteilung mit der Arbeit beginnen. Bei dringenden Fällen ist auch ein kurzfristiger Einsatz möglich. Kontaktieren Sie uns einfach."
   },
   {
-    question: "Was passiert mit den geraemten Gegenstaenden?",
-    answer: "Verwertbare Gegenstaende werden auf Wunsch verkaeuft oder gespendet. Der Erloes wird von Ihren Kosten abgezogen. Alles andere wird umweltgerecht entsorgt und fachgerecht recycelt."
+    question: "Was passiert mit den geräumten Gegenständen?",
+    answer: "Verwertbare Gegenstände werden auf Wunsch verkauft oder gespendet. Der Erlös wird von Ihren Kosten abgezogen. Alles andere wird umweltgerecht entsorgt und fachgerecht recycelt."
   },
   {
-    question: "In welchem Gebiet sind Sie taetig?",
-    answer: "Wir sind in Berlin, Brandenburg und der gesamten Umgebung taetig. Fuer groessere Projekte kommen wir auch gerne weiter. Fragen Sie einfach an!"
+    question: "In welchem Gebiet sind Sie tätig?",
+    answer: "Wir sind in Berlin, Brandenburg und der gesamten Umgebung tätig. Für größere Projekte kommen wir auch gerne weiter. Fragen Sie einfach an!"
   },
   {
-    question: "Bieten Sie auch Renovierung nach der Raeumung an?",
-    answer: "Ja, wir bieten alles aus einer Hand! Nach der Entruempelung koennen wir die Raeume auf Wunsch renovieren - inklusive Malerarbeiten, neue Bodenbelaege und Tapezierarbeiten."
+    question: "Bieten Sie auch Renovierung nach der Räumung an?",
+    answer: "Ja, wir bieten alles aus einer Hand! Nach der Entrümpelung können wir die Räume auf Wunsch renovieren - inklusive Malerarbeiten, neue Bodenbeläge und Tapezierarbeiten."
   },
   {
-    question: "Wie wird die Entsorgung durchgefuehrt?",
+    question: "Wie wird die Entsorgung durchgeführt?",
     answer: "Wir arbeiten mit zertifizierten Entsorgungsbetrieben zusammen und achten auf umweltgerechte Trennung und Recycling. Auf Wunsch erhalten Sie einen Entsorgungsnachweis."
   },
   {
     question: "Kann ich einen festen Termin vereinbaren?",
-    answer: "Selbstverstaendlich! Wir vereinbaren einen festen Termin, der fuer Sie passt. Unsere Arbeitszeiten sind Montag bis Samstag von 07:00 bis 20:00 Uhr."
+    answer: "Selbstverständlich! Wir vereinbaren einen festen Termin, der für Sie passt. Unsere Arbeitszeiten sind Montag bis Samstag von 07:00 bis 20:00 Uhr."
   }
 ];
+
+// ========== SMOOTH SCROLL UTILITY ==========
+
+function smoothScrollTo(targetY, duration) {
+  duration = duration || 800;
+  var startY = window.pageYOffset || document.documentElement.scrollTop;
+  var diff = targetY - startY;
+  var startTime = null;
+
+  function easeInOutCubic(t) {
+    return t < 0.5
+      ? 4 * t * t * t
+      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function step(currentTime) {
+    if (!startTime) startTime = currentTime;
+    var elapsed = currentTime - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    var easedProgress = easeInOutCubic(progress);
+
+    window.scrollTo(0, startY + diff * easedProgress);
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    }
+  }
+
+  requestAnimationFrame(step);
+}
 
 // ========== INITIALIZATION ==========
 
@@ -163,14 +193,14 @@ function initHeader() {
     lastScroll = scrollY;
   }, { passive: true });
 
-  // Smooth scroll for anchor links
+  // Smooth scroll for anchor links using custom animated scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const target = document.querySelector(anchor.getAttribute('href'));
       if (target) {
         e.preventDefault();
         const offsetTop = target.offsetTop - 70;
-        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        smoothScrollTo(offsetTop, 800);
       }
     });
   });
@@ -201,7 +231,7 @@ function renderReviews() {
   const track = document.getElementById('marqueeTrack');
   if (!track) return;
 
-  const starSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#F5C518"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  const starSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#D4A24C"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
 
   track.innerHTML = REVIEWS_DATA.map(review => `
     <div class="review-card">

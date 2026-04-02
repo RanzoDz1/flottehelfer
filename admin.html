@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #0B6E4F;
-      --primary-dark: #084D38;
+      --primary: #B52D24;
+      --primary-dark: #8B1A14;
       --accent: #E8871E;
-      --secondary: #1A8A8A;
+      --secondary: #2C3E50;
       --dark: #0F1923;
       --dark-2: #1a2736;
       --dark-3: #2a3a4a;
@@ -114,7 +114,7 @@
 
     .login-form input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(11, 110, 79, 0.2);
+      box-shadow: 0 0 0 3px rgba(181, 45, 36, 0.2);
     }
 
     .login-form input::placeholder { color: rgba(255,255,255,0.3); }
@@ -208,7 +208,7 @@
 
     .sidebar-nav a:hover,
     .sidebar-nav a.active {
-      background: rgba(11, 110, 79, 0.1);
+      background: rgba(181, 45, 36, 0.1);
       color: var(--white);
       border-left-color: var(--primary);
     }
@@ -414,7 +414,7 @@
 
     .badge-neu { background: rgba(232, 135, 30, 0.15); color: var(--accent); }
     .badge-kontaktiert { background: rgba(26, 138, 138, 0.15); color: var(--secondary); }
-    .badge-erledigt { background: rgba(11, 110, 79, 0.15); color: var(--primary); }
+    .badge-erledigt { background: rgba(181, 45, 36, 0.15); color: var(--primary); }
 
     .action-btn {
       background: none;
@@ -467,7 +467,7 @@
         <input type="text" id="loginUser" placeholder="Benutzername" autocomplete="username" required>
         <input type="password" id="loginPass" placeholder="Passwort" autocomplete="current-password" required>
         <button type="submit" class="login-btn">Anmelden</button>
-        <p class="login-error" id="loginError">Ungueltige Zugangsdaten</p>
+        <p class="login-error" id="loginError">Ungültige Zugangsdaten</p>
       </form>
     </div>
   </div>
@@ -508,7 +508,7 @@
         <h1>Dashboard</h1>
         <div class="dash-header-actions">
           <button class="dash-btn dash-btn-outline" onclick="exportCSV()">CSV Export</button>
-          <button class="dash-btn dash-btn-primary" onclick="clearSubmissions()">Alle loeschen</button>
+          <button class="dash-btn dash-btn-primary" onclick="clearSubmissions()">Alle löschen</button>
         </div>
       </div>
 
@@ -642,10 +642,10 @@
             <td>${d.leistung || '-'}</td>
             <td><span class="badge ${badgeClass}">${sub.status}</span></td>
             <td>
-              <button class="action-btn" onclick="cycleStatus('${sub.id}')" title="Status aendern">
+              <button class="action-btn" onclick="cycleStatus('${sub.id}')" title="Status ändern">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
               </button>
-              <button class="action-btn" onclick="deleteSubmission('${sub.id}')" title="Loeschen">
+              <button class="action-btn" onclick="deleteSubmission('${sub.id}')" title="Löschen">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
               </button>
             </td>
@@ -690,7 +690,7 @@
     }
 
     function clearSubmissions() {
-      if (confirm('Alle Anfragen wirklich loeschen?')) {
+      if (confirm('Alle Anfragen wirklich löschen?')) {
         localStorage.setItem('fh_submissions', '[]');
         renderDashboard();
       }

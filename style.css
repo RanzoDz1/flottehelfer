@@ -6,11 +6,14 @@
 /* ---------- CSS Custom Properties ---------- */
 :root {
   /* Premium Red Palette - matched to Flotte Helfer brand */
-  --primary: #B52D24;
-  --primary-dark: #8B1A14;
-  --primary-light: #D94035;
+  --primary: #8B1A1A;
+  --primary-dark: #5C0F0F;
+  --primary-light: #A62222;
   --accent: #D4A24C;
   --accent-dark: #B8872E;
+  --btn: #FFFFFF;
+  --btn-hover: #F0EFED;
+  --btn-text: #111318;
   --secondary: #2C3E50;
   --secondary-dark: #1A252F;
   --dark: #111318;
@@ -81,8 +84,8 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent);
-  color: var(--white);
+  background: var(--btn);
+  color: var(--btn-text);
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 600;
@@ -93,13 +96,13 @@ h1, h2, h3, h4 {
   border: none;
   cursor: pointer;
   transition: all var(--transition);
-  box-shadow: 0 4px 20px rgba(212, 162, 76, 0.35);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
 }
 
 .btn-primary:hover {
-  background: var(--accent-dark);
+  background: var(--btn-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(212, 162, 76, 0.45);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
 
 .btn-outline {
@@ -137,8 +140,8 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--accent);
-  color: var(--white);
+  background: var(--btn);
+  color: var(--btn-text);
   font-family: var(--font-heading);
   font-size: 0.8rem;
   font-weight: 600;
@@ -153,7 +156,7 @@ h1, h2, h3, h4 {
 }
 
 .btn-service:hover {
-  background: var(--accent-dark);
+  background: var(--btn-hover);
   transform: translateY(-2px);
 }
 
@@ -164,7 +167,7 @@ h1, h2, h3, h4 {
 
 .section-tag {
   display: inline-block;
-  background: rgba(181, 45, 36, 0.1);
+  background: rgba(139, 26, 26, 0.1);
   color: var(--primary);
   font-family: var(--font-heading);
   font-size: 0.8rem;
@@ -444,7 +447,7 @@ h1, h2, h3, h4 {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(17, 19, 24, 0.90) 0%, rgba(181, 45, 36, 0.50) 100%);
+  background: linear-gradient(135deg, rgba(17, 19, 24, 0.90) 0%, rgba(139, 26, 26, 0.50) 100%);
 }
 
 .hero-content {
@@ -601,7 +604,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 52px;
   height: 52px;
-  background: rgba(181, 45, 36, 0.15);
+  background: rgba(139, 26, 26, 0.15);
   border-radius: 14px;
   color: var(--primary);
   flex-shrink: 0;
@@ -650,6 +653,10 @@ h1, h2, h3, h4 {
 }
 
 .bento-wide { grid-column: span 2; }
+
+.bento-grid > .bento-card:last-child {
+  grid-column: 1 / -1;
+}
 
 .bento-img-wrap {
   position: absolute;
@@ -789,7 +796,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: rgba(181, 45, 36, 0.15);
+  background: rgba(139, 26, 26, 0.15);
   border-radius: 10px;
   color: var(--primary);
   flex-shrink: 0;
@@ -880,7 +887,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-heading);
   font-size: 2.5rem;
   font-weight: 700;
-  color: rgba(181, 45, 36, 0.15);
+  color: rgba(139, 26, 26, 0.15);
   line-height: 1;
   margin-bottom: 12px;
 }
@@ -891,7 +898,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 64px;
   height: 64px;
-  background: rgba(181, 45, 36, 0.08);
+  background: rgba(139, 26, 26, 0.08);
   border-radius: 16px;
   color: var(--primary);
   margin: 0 auto 16px;
@@ -1141,7 +1148,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: rgba(181, 45, 36, 0.08);
+  background: rgba(139, 26, 26, 0.08);
   border-radius: 12px;
   color: var(--primary);
   flex-shrink: 0;
@@ -1182,7 +1189,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: rgba(181, 45, 36, 0.08);
+  background: rgba(139, 26, 26, 0.08);
   border-radius: 12px;
   color: var(--primary);
   transition: all var(--transition);
@@ -1239,7 +1246,7 @@ h1, h2, h3, h4 {
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(181, 45, 36, 0.1);
+  box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.1);
 }
 
 .form-group textarea { resize: vertical; min-height: 120px; }
@@ -1473,7 +1480,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--accent);
+  background: var(--primary);
   color: var(--white);
   font-family: var(--font-heading);
   font-size: 0.8rem;
@@ -1484,7 +1491,7 @@ h1, h2, h3, h4 {
   border-radius: 50px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(212, 162, 76, 0.4);
+  box-shadow: 0 4px 20px rgba(139, 26, 26, 0.4);
   transition: all var(--transition);
   opacity: 0;
   pointer-events: none;
@@ -1498,9 +1505,9 @@ h1, h2, h3, h4 {
 }
 
 .floating-quote-btn:hover {
-  background: var(--accent-dark);
+  background: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(212, 162, 76, 0.5);
+  box-shadow: 0 8px 30px rgba(139, 26, 26, 0.5);
 }
 
 .floating-quote-btn.show:hover { transform: translateY(-2px); }

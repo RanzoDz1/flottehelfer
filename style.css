@@ -360,14 +360,14 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: rgba(255,255,255,0.85);
+  color: var(--accent);
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.03em;
   transition: color var(--transition);
 }
-.nav-phone:hover { color: var(--accent); }
+.nav-phone:hover { color: var(--white); }
 .nav-phone svg { color: var(--accent); }
 
 .nav-cta { margin-left: 12px; }

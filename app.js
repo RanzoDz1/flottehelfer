@@ -1,0 +1,493 @@
+/* ============================================
+   FLOTTE HELFER - App JavaScript
+   All interactivity: menu, scroll, marquee,
+   accordion, forms, modals, counters, cookies
+   ============================================ */
+
+// ========== DATA ==========
+
+const REVIEWS_DATA = [
+  {
+    name: "Martina Schneider",
+    initials: "MS",
+    date: "vor 2 Wochen",
+    rating: 5,
+    text: "Absolut zuverlaessig! Die Entruempelung unseres Kellers wurde schnell und sauber erledigt. Der Preis war fair und es gab keine versteckten Kosten. Sehr empfehlenswert!"
+  },
+  {
+    name: "Thomas Mueller",
+    initials: "TM",
+    date: "vor 1 Monat",
+    rating: 5,
+    text: "Nach dem Tod meiner Mutter brauchten wir Hilfe bei der Haushaltsaufloesung. Frau Sachs und ihr Team waren einfuehlsam und professionell. Alles wurde sorgfaeltig behandelt."
+  },
+  {
+    name: "Sabine Weber",
+    initials: "SW",
+    date: "vor 3 Wochen",
+    rating: 5,
+    text: "Top Service! Dachboden komplett geraeumt und anschliessend besenrein uebergeben. Termingerecht und zu einem fairen Festpreis. Kann ich nur weiterempfehlen."
+  },
+  {
+    name: "Klaus Fischer",
+    initials: "KF",
+    date: "vor 2 Monaten",
+    rating: 5,
+    text: "Wir haben Flotte Helfer fuer die Entruempelung und anschliessende Renovierung unserer Mietwohnung beauftragt. Alles aus einer Hand - super praktisch und das Ergebnis war einwandfrei."
+  },
+  {
+    name: "Andrea Hoffmann",
+    initials: "AH",
+    date: "vor 1 Monat",
+    rating: 5,
+    text: "Schnelle Reaktion auf unsere Anfrage und sofortige Besichtigung. Das Angebot war transparent und der Preis wurde genau eingehalten. Sehr professionelles Team!"
+  },
+  {
+    name: "Michael Braun",
+    initials: "MB",
+    date: "vor 3 Monaten",
+    rating: 5,
+    text: "Haben unseren gesamten Sperr muell abholen lassen. Puenktlich, freundlich und haben sogar noch die Garage gefegt. Besser geht es nicht. Vielen Dank!"
+  },
+  {
+    name: "Petra Wagner",
+    initials: "PW",
+    date: "vor 6 Wochen",
+    rating: 4,
+    text: "Gute Arbeit bei der Kellerentruempelung. Das Team war fleissig und hat alles ordentlich entsorgt. Einziger Punkt: Der Termin hat sich um eine Stunde verzoegert. Sonst top!"
+  },
+  {
+    name: "Hans-Juergen Becker",
+    initials: "HB",
+    date: "vor 2 Monaten",
+    rating: 5,
+    text: "Wir haben mehrere Angebote eingeholt und Flotte Helfer hatte das beste Preis-Leistungs-Verhaeltnis. Die Demontage der alten Einbaukueche war in zwei Stunden erledigt. Sehr zufrieden!"
+  },
+  {
+    name: "Ulrike Schulz",
+    initials: "US",
+    date: "vor 1 Woche",
+    rating: 5,
+    text: "Perfekte Haushaltsaufloesung! Alles wurde sortiert, verwertbare Dinge angerechnet und der Rest fachgerecht entsorgt. Frau Sachs ist wirklich ein Profi auf ihrem Gebiet."
+  }
+];
+
+const FAQS_DATA = [
+  {
+    question: "Was kostet eine Entruempelung?",
+    answer: "Die Kosten haengen von der Groesse und dem Umfang der Raeumung ab. Unsere Preise beginnen ab 499 Euro fuer kleine Raeumungen. Wir bieten eine kostenlose Vor-Ort-Besichtigung an und erstellen ein verbindliches Festpreisangebot ohne versteckte Kosten."
+  },
+  {
+    question: "Bieten Sie eine kostenlose Besichtigung an?",
+    answer: "Ja! Wir bieten eine kostenlose und unverbindliche Vor-Ort-Besichtigung an. Dabei schaetzen wir den Umfang der Arbeit ein und erstellen Ihnen ein verbindliches Festpreisangebot."
+  },
+  {
+    question: "Wie schnell koennen Sie den Auftrag ausfuehren?",
+    answer: "In der Regel koennen wir innerhalb von 48 Stunden nach Auftragserteilung mit der Arbeit beginnen. Bei dringenden Faellen ist auch ein kurzfristiger Einsatz moeglich. Kontaktieren Sie uns einfach."
+  },
+  {
+    question: "Was passiert mit den geraemten Gegenstaenden?",
+    answer: "Verwertbare Gegenstaende werden auf Wunsch verkaeuft oder gespendet. Der Erloes wird von Ihren Kosten abgezogen. Alles andere wird umweltgerecht entsorgt und fachgerecht recycelt."
+  },
+  {
+    question: "In welchem Gebiet sind Sie taetig?",
+    answer: "Wir sind in Berlin, Brandenburg und der gesamten Umgebung taetig. Fuer groessere Projekte kommen wir auch gerne weiter. Fragen Sie einfach an!"
+  },
+  {
+    question: "Bieten Sie auch Renovierung nach der Raeumung an?",
+    answer: "Ja, wir bieten alles aus einer Hand! Nach der Entruempelung koennen wir die Raeume auf Wunsch renovieren - inklusive Malerarbeiten, neue Bodenbelaege und Tapezierarbeiten."
+  },
+  {
+    question: "Wie wird die Entsorgung durchgefuehrt?",
+    answer: "Wir arbeiten mit zertifizierten Entsorgungsbetrieben zusammen und achten auf umweltgerechte Trennung und Recycling. Auf Wunsch erhalten Sie einen Entsorgungsnachweis."
+  },
+  {
+    question: "Kann ich einen festen Termin vereinbaren?",
+    answer: "Selbstverstaendlich! Wir vereinbaren einen festen Termin, der fuer Sie passt. Unsere Arbeitszeiten sind Montag bis Samstag von 07:00 bis 20:00 Uhr."
+  }
+];
+
+// ========== INITIALIZATION ==========
+
+document.addEventListener('DOMContentLoaded', () => {
+  initCookieBanner();
+  initHeader();
+  initMobileNav();
+  renderReviews();
+  initMarquee();
+  renderFAQ();
+  initScrollAnimations();
+  initFloatingQuoteBtn();
+  initCounters();
+  initContactForm();
+});
+
+// ========== COOKIE BANNER ==========
+
+function initCookieBanner() {
+  const consent = localStorage.getItem('fh_cookie_consent');
+  if (!consent) {
+    setTimeout(() => {
+      document.getElementById('cookieBanner').classList.add('show');
+    }, 1500);
+  }
+}
+
+function acceptCookies() {
+  localStorage.setItem('fh_cookie_consent', 'accepted');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function rejectCookies() {
+  localStorage.setItem('fh_cookie_consent', 'rejected');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+
+// ========== HEADER SCROLL ==========
+
+function initHeader() {
+  const header = document.getElementById('siteHeader');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+
+    if (scrollY > 80) {
+      header.style.background = 'rgba(15, 25, 35, 0.98)';
+      header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.3)';
+    } else {
+      header.style.background = 'rgba(15, 25, 35, 0.92)';
+      header.style.boxShadow = 'none';
+    }
+
+    lastScroll = scrollY;
+  }, { passive: true });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offsetTop = target.offsetTop - 70;
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    });
+  });
+}
+
+// ========== MOBILE NAV ==========
+
+function initMobileNav() {
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+  });
+}
+
+function closeMobileNav() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ========== REVIEWS MARQUEE ==========
+
+function renderReviews() {
+  const track = document.getElementById('marqueeTrack');
+  if (!track) return;
+
+  const starSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="#F5C518"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
+  track.innerHTML = REVIEWS_DATA.map(review => `
+    <div class="review-card">
+      <div class="review-stars">${starSVG.repeat(review.rating)}</div>
+      <p class="review-text">"${review.text}"</p>
+      <div class="review-author">
+        <div class="review-avatar">${review.initials}</div>
+        <div>
+          <div class="review-name">${review.name}</div>
+          <div class="review-date">${review.date}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function initMarquee() {
+  const marqueeOuter = document.getElementById('marqueeOuter');
+  const marqueeTrack = document.getElementById('marqueeTrack');
+  if (!marqueeTrack || !marqueeOuter) return;
+
+  // Clone cards for seamless loop
+  const origCards = [...marqueeTrack.children];
+  origCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    marqueeTrack.appendChild(clone);
+  });
+
+  let scrollPos = 0;
+  const SPEED = 0.5;
+  let paused = false;
+  let rafId;
+
+  function getHalfWidth() {
+    const cards = marqueeTrack.querySelectorAll('.review-card:not([aria-hidden])');
+    let w = 0;
+    cards.forEach(c => { w += c.offsetWidth + 24; }); // 24 = gap
+    return w;
+  }
+
+  let halfWidth = getHalfWidth();
+  window.addEventListener('resize', () => { halfWidth = getHalfWidth(); });
+
+  function step() {
+    if (!paused && halfWidth > 0) {
+      scrollPos += SPEED;
+      if (scrollPos >= halfWidth) scrollPos -= halfWidth;
+      marqueeTrack.style.transform = `translateX(-${scrollPos}px)`;
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
+  marqueeOuter.addEventListener('mouseenter', () => { paused = true; });
+  marqueeOuter.addEventListener('mouseleave', () => { paused = false; });
+  marqueeOuter.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+  marqueeOuter.addEventListener('touchend', () => {
+    setTimeout(() => { paused = false; }, 2000);
+  }, { passive: true });
+
+  step();
+}
+
+// ========== FAQ ACCORDION ==========
+
+function renderFAQ() {
+  const list = document.getElementById('faqList');
+  if (!list) return;
+
+  list.innerHTML = FAQS_DATA.map((faq, i) => `
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-question" onclick="toggleFAQ(${i})" aria-expanded="false">
+        ${faq.question}
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer" id="faq-answer-${i}">
+        <p>${faq.answer}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleFAQ(index) {
+  const item = document.getElementById('faq-' + index);
+  const isOpen = item.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.faq-question').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+
+  // Open clicked if wasn't open
+  if (!isOpen) {
+    item.classList.add('open');
+    item.querySelector('.faq-question').setAttribute('aria-expanded', 'true');
+  }
+}
+
+// ========== SCROLL ANIMATIONS ==========
+
+function initScrollAnimations() {
+  if (!('IntersectionObserver' in window)) return;
+
+  const animateEls = document.querySelectorAll(
+    '.bento-card, .review-card, .process-step, .trust-item, .why-list li, .more-service-item, .contact-item, .stat-block'
+  );
+
+  const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger animation
+        const delay = Math.min(i * 80, 400);
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, delay);
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  animateEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    animObserver.observe(el);
+  });
+}
+
+// ========== FLOATING QUOTE BUTTON ==========
+
+function initFloatingQuoteBtn() {
+  const btn = document.getElementById('floatingQuoteBtn');
+  const hero = document.getElementById('hero');
+  if (!btn || !hero) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(hero);
+}
+
+// ========== ANIMATED COUNTERS ==========
+
+function initCounters() {
+  const counters = document.querySelectorAll('.counter');
+  if (!counters.length) return;
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => counterObserver.observe(counter));
+}
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 2000;
+  const start = performance.now();
+
+  function update(currentTime) {
+    const elapsed = currentTime - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out quad
+    const eased = 1 - (1 - progress) * (1 - progress);
+    el.textContent = Math.floor(eased * target);
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      el.textContent = target;
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+// ========== CONTACT FORM ==========
+
+function initContactForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    // Save to localStorage before submitting to FormSubmit
+    saveSubmission(form);
+  });
+
+  const quoteForm = document.getElementById('quoteForm');
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', (e) => {
+      saveSubmission(quoteForm);
+    });
+  }
+}
+
+function saveSubmission(form) {
+  const formData = new FormData(form);
+  const submission = {
+    id: Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+    timestamp: new Date().toISOString(),
+    status: 'Neu',
+    data: {}
+  };
+
+  formData.forEach((value, key) => {
+    if (!key.startsWith('_')) {
+      submission.data[key] = value;
+    }
+  });
+
+  // Get existing submissions
+  const submissions = JSON.parse(localStorage.getItem('fh_submissions') || '[]');
+  submissions.unshift(submission);
+  localStorage.setItem('fh_submissions', JSON.stringify(submissions));
+}
+
+// ========== MODALS ==========
+
+function openImpressum() {
+  document.getElementById('impressumModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImpressum() {
+  document.getElementById('impressumModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openDatenschutz() {
+  document.getElementById('datenschutzModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDatenschutz() {
+  document.getElementById('datenschutzModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function openQuoteModal(service) {
+  const modal = document.getElementById('quoteModal');
+  const select = document.getElementById('quoteService');
+
+  if (service && select) {
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].value === service) {
+        select.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQuoteModal() {
+  document.getElementById('quoteModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modals on overlay click
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal-overlay') && e.target.classList.contains('open')) {
+    e.target.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close modals on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(modal => {
+      modal.classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
+});

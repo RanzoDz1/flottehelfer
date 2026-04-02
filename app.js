@@ -196,12 +196,20 @@ function initHeader() {
   // Smooth scroll for anchor links using custom animated scroll
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offsetTop = target.offsetTop - 70;
-        smoothScrollTo(offsetTop, 800);
-      }
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      try {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          // Close mobile nav if open
+          document.getElementById('mobileNav').classList.remove('open');
+          document.getElementById('hamburger').classList.remove('open');
+          document.body.style.overflow = '';
+          const offsetTop = target.getBoundingClientRect().top + window.scrollY - 70;
+          smoothScrollTo(offsetTop, 900);
+        }
+      } catch (err) {}
     });
   });
 }

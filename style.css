@@ -11,9 +11,9 @@
   --primary-light: #A62222;
   --accent: #D4A24C;
   --accent-dark: #B8872E;
-  --btn: #FFFFFF;
-  --btn-hover: #F0EFED;
-  --btn-text: #111318;
+  --btn: var(--primary);
+  --btn-hover: var(--primary-light);
+  --btn-text: #FFFFFF;
   --secondary: #2C3E50;
   --secondary-dark: #1A252F;
   --dark: #111318;
@@ -96,13 +96,13 @@ h1, h2, h3, h4 {
   border: none;
   cursor: pointer;
   transition: all var(--transition);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 20px rgba(139, 26, 26, 0.45);
 }
 
 .btn-primary:hover {
   background: var(--btn-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 30px rgba(139, 26, 26, 0.55);
 }
 
 .btn-outline {
@@ -927,7 +927,7 @@ h1, h2, h3, h4 {
 
 /* ---------- Stats Counter ---------- */
 .stats-section {
-  background: var(--primary);
+  background: linear-gradient(135deg, #2A0808 0%, #5C1010 35%, #6B1414 65%, #2A0808 100%);
   padding: 64px 0;
 }
 
@@ -1474,8 +1474,8 @@ h1, h2, h3, h4 {
 /* ---------- Floating Quote Button ---------- */
 .floating-quote-btn {
   position: fixed;
-  bottom: 90px;
-  right: 24px;
+  bottom: 24px;
+  left: 24px;
   z-index: 900;
   display: flex;
   align-items: center;
@@ -1606,8 +1606,8 @@ h1, h2, h3, h4 {
 
   .cookie-inner { flex-direction: column; text-align: center; }
 
-  .whatsapp-btn { bottom: 72px; }
-  .floating-quote-btn { bottom: 136px; }
+  .whatsapp-btn { bottom: 24px; }
+  .floating-quote-btn { bottom: 90px; left: 16px; }
 
   .mobile-call-bar { display: block; }
 

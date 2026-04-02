@@ -1706,7 +1706,7 @@ h1, h2, h3, h4 {
   .cookie-inner { flex-direction: column; text-align: center; }
 
   .whatsapp-btn { bottom: 90px; right: 16px; }
-  .floating-quote-btn { bottom: 156px; left: 16px; }
+  .floating-quote-btn { bottom: 90px; left: 16px; }
 
   .mobile-call-bar { display: block; }
 

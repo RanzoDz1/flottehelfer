@@ -1684,6 +1684,7 @@ h1, h2, h3, h4 {
   .bento-grid::-webkit-scrollbar { display: none; }
   .bento-card {
     flex: 0 0 80vw;
+    min-width: 80vw;
     scroll-snap-align: start;
     min-height: 220px;
   }
@@ -1691,12 +1692,14 @@ h1, h2, h3, h4 {
     grid-column: span 1;
     grid-row: span 1;
     flex: 0 0 80vw;
+    min-width: 80vw;
     min-height: 280px;
   }
   .bento-wide {
     grid-column: span 1;
     grid-row: span 1;
     flex: 0 0 80vw;
+    min-width: 80vw;
     min-height: 220px;
   }
   .bento-grid > .bento-card:last-child {
@@ -1729,6 +1732,7 @@ h1, h2, h3, h4 {
   .process-grid::-webkit-scrollbar { display: none; }
   .process-step {
     flex: 0 0 75vw;
+    min-width: 75vw;
     scroll-snap-align: start;
   }
 

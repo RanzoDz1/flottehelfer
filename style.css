@@ -1664,18 +1664,10 @@ h1, h2, h3, h4 {
   .stat-num { font-size: 1.5rem; }
 
   .trust-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    grid-template-columns: 1fr 1fr;
     gap: 16px;
-    padding: 0 16px 12px;
-    scrollbar-width: none;
   }
-  .trust-grid::-webkit-scrollbar { display: none; }
   .trust-item {
-    flex: 0 0 70vw;
-    scroll-snap-align: start;
     flex-direction: column;
     text-align: center;
   }
@@ -1691,35 +1683,29 @@ h1, h2, h3, h4 {
   }
   .bento-grid::-webkit-scrollbar { display: none; }
   .bento-card {
-    flex: 0 0 82vw;
+    flex: 0 0 80vw;
     scroll-snap-align: start;
-    min-height: auto;
+    min-height: 220px;
   }
-  .bento-large,
+  .bento-large {
+    grid-column: span 1;
+    grid-row: span 1;
+    flex: 0 0 80vw;
+    min-height: 280px;
+  }
   .bento-wide {
     grid-column: span 1;
     grid-row: span 1;
-    flex: 0 0 82vw;
-    scroll-snap-align: start;
-    min-height: auto;
+    flex: 0 0 80vw;
+    min-height: 220px;
   }
   .bento-grid > .bento-card:last-child {
     grid-column: auto;
   }
 
   .more-services-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 16px;
-    padding: 0 16px 12px;
-    scrollbar-width: none;
-  }
-  .more-services-grid::-webkit-scrollbar { display: none; }
-  .more-service-item {
-    flex: 0 0 70vw;
-    scroll-snap-align: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   .about-grid {
@@ -1747,18 +1733,8 @@ h1, h2, h3, h4 {
   }
 
   .stats-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    padding: 0 16px 12px;
-    scrollbar-width: none;
-  }
-  .stats-grid::-webkit-scrollbar { display: none; }
-  .stat-block {
-    flex: 0 0 45vw;
-    scroll-snap-align: start;
   }
   .counter { font-size: 2.2rem; }
 
@@ -1795,9 +1771,9 @@ h1, h2, h3, h4 {
   .hero-stats { flex-direction: column; gap: 12px; }
   .stat-divider { width: 40px; height: 1px; }
 
-  .trust-item { flex: 0 0 85vw; }
+  .trust-grid { grid-template-columns: 1fr; }
 
-  .more-service-item { flex: 0 0 85vw; }
+  .more-services-grid { grid-template-columns: 1fr; }
 
   .form-row { grid-template-columns: 1fr; }
 

@@ -1664,12 +1664,23 @@ h1, h2, h3, h4 {
   .stat-num { font-size: 1.5rem; }
 
   .trust-grid {
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 8px;
   }
   .trust-item {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.78rem;
     flex-direction: column;
     text-align: center;
+  }
+  .trust-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    justify-self: center;
   }
 
   .bento-grid {
@@ -1775,7 +1786,7 @@ h1, h2, h3, h4 {
   .hero-stats { flex-direction: column; gap: 12px; }
   .stat-divider { width: 40px; height: 1px; }
 
-  .trust-grid { grid-template-columns: 1fr; }
+  .trust-grid { grid-template-columns: 1fr 1fr; }
 
   .more-services-grid { grid-template-columns: 1fr; }
 
@@ -1784,4 +1795,53 @@ h1, h2, h3, h4 {
   .contact-form-wrap { padding: 24px; }
 
   .review-card { min-width: 280px; max-width: 280px; padding: 20px; }
+}
+
+/* ---------- Carousel Arrows ---------- */
+.carousel-wrap {
+  position: relative;
+}
+
+.carousel-arrow {
+  display: none; /* hidden by default on desktop */
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--dark);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.carousel-arrow:hover {
+  background: var(--light);
+}
+
+.carousel-arrow.left {
+  left: 4px;
+}
+
+.carousel-arrow.right {
+  right: 4px;
+}
+
+.carousel-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .carousel-arrow {
+    display: flex;
+  }
 }

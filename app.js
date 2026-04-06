@@ -159,11 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackInterceptor();
   renderReviews();
   initMarquee();
+  initMarqueeTouchMomentum();
   renderFAQ();
   initScrollAnimations();
   initFloatingQuoteBtn();
   initCounters();
   initContactForm();
+  initCarouselArrows();
 });
 
 // ========== COOKIE BANNER ==========
@@ -191,7 +193,6 @@ function rejectCookies() {
 
 function initHeader() {
   const header = document.getElementById('siteHeader');
-  let lastScroll = 0;
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
@@ -204,14 +205,8 @@ function initHeader() {
       header.style.boxShadow = 'none';
     }
 
-    // Hide on scroll-down, show on scroll-up
-    if (scrollY > 120 && scrollY > lastScroll) {
-      header.style.transform = 'translateY(-100%)';
-    } else {
-      header.style.transform = 'translateY(0)';
-    }
-
-    lastScroll = scrollY;
+    // Header always visible - only background changes on scroll
+    header.style.transform = 'translateY(0)';
   }, { passive: true });
 
   // Smooth scroll for anchor links using custom animated scroll
@@ -340,7 +335,18 @@ function initMarquee() {
   window.addEventListener('resize', () => { halfWidth = getHalfWidth(); });
 
   function step() {
-    if (!paused && halfWidth > 0) {
+    // Check if touch momentum is active
+    var touchActive = marqueeOuter.dataset.touchActive === 'true';
+
+    // Sync scrollPos after momentum ends
+    if (marqueeOuter.dataset.syncScrollPos) {
+      scrollPos = parseFloat(marqueeOuter.dataset.syncScrollPos);
+      if (scrollPos < 0) scrollPos = 0;
+      if (halfWidth > 0 && scrollPos >= halfWidth) scrollPos = scrollPos % halfWidth;
+      delete marqueeOuter.dataset.syncScrollPos;
+    }
+
+    if (!paused && !touchActive && halfWidth > 0) {
       scrollPos += SPEED;
       if (scrollPos >= halfWidth) scrollPos -= halfWidth;
       marqueeTrack.style.transform = `translateX(-${scrollPos}px)`;
@@ -350,6 +356,7 @@ function initMarquee() {
 
   marqueeOuter.addEventListener('mouseenter', () => { paused = true; });
   marqueeOuter.addEventListener('mouseleave', () => { paused = false; });
+  // Touch pause is now handled by the momentum system via dataset.touchActive
   marqueeOuter.addEventListener('touchstart', () => { paused = true; }, { passive: true });
   marqueeOuter.addEventListener('touchend', () => {
     setTimeout(() => { paused = false; }, 2000);
@@ -584,3 +591,144 @@ document.addEventListener('keydown', (e) => {
     document.body.style.overflow = '';
   }
 });
+
+// ========== CAROUSEL ARROWS ==========
+
+function initCarouselArrows() {
+  const wraps = document.querySelectorAll('.carousel-wrap');
+  wraps.forEach(wrap => {
+    const grid = wrap.querySelector('.bento-grid, .process-grid');
+    const leftBtn = wrap.querySelector('.carousel-arrow.left');
+    const rightBtn = wrap.querySelector('.carousel-arrow.right');
+    if (!grid || !leftBtn || !rightBtn) return;
+
+    function updateArrows() {
+      const scrollLeft = grid.scrollLeft;
+      const maxScroll = grid.scrollWidth - grid.clientWidth;
+      if (scrollLeft <= 2) {
+        leftBtn.classList.add('hidden');
+      } else {
+        leftBtn.classList.remove('hidden');
+      }
+      if (scrollLeft >= maxScroll - 2) {
+        rightBtn.classList.add('hidden');
+      } else {
+        rightBtn.classList.remove('hidden');
+      }
+    }
+
+    leftBtn.addEventListener('click', () => {
+      const scrollAmount = grid.clientWidth * 0.8;
+      grid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    rightBtn.addEventListener('click', () => {
+      const scrollAmount = grid.clientWidth * 0.8;
+      grid.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    grid.addEventListener('scroll', updateArrows, { passive: true });
+    // Initial check
+    updateArrows();
+    // Re-check after layout settles
+    setTimeout(updateArrows, 300);
+    window.addEventListener('resize', updateArrows);
+  });
+}
+
+// ========== REVIEWS TOUCH MOMENTUM ==========
+
+function initMarqueeTouchMomentum() {
+  const marqueeOuter = document.getElementById('marqueeOuter');
+  const marqueeTrack = document.getElementById('marqueeTrack');
+  if (!marqueeTrack || !marqueeOuter) return;
+
+  let isDragging = false;
+  let startX = 0;
+  let startTranslateX = 0;
+  let currentTranslateX = 0;
+  let lastTouchX = 0;
+  let lastTouchTime = 0;
+  let velocity = 0;
+  let momentumRaf = null;
+
+  function getCurrentTranslateX() {
+    const style = window.getComputedStyle(marqueeTrack);
+    const matrix = new DOMMatrix(style.transform);
+    return matrix.m41;
+  }
+
+  marqueeOuter.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    // Cancel any ongoing momentum
+    if (momentumRaf) cancelAnimationFrame(momentumRaf);
+
+    startX = e.touches[0].clientX;
+    startTranslateX = getCurrentTranslateX();
+    currentTranslateX = startTranslateX;
+    lastTouchX = startX;
+    lastTouchTime = Date.now();
+    velocity = 0;
+
+    // Pause the marquee animation by dispatching a custom event
+    marqueeOuter.dataset.touchActive = 'true';
+  }, { passive: true });
+
+  marqueeOuter.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touchX = e.touches[0].clientX;
+    const diff = touchX - startX;
+    currentTranslateX = startTranslateX + diff;
+    marqueeTrack.style.transform = 'translateX(' + currentTranslateX + 'px)';
+
+    // Calculate velocity
+    const now = Date.now();
+    const dt = now - lastTouchTime;
+    if (dt > 0) {
+      velocity = (touchX - lastTouchX) / dt; // px per ms
+    }
+    lastTouchX = touchX;
+    lastTouchTime = now;
+  }, { passive: true });
+
+  marqueeOuter.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    // Apply momentum
+    const friction = 0.95;
+    let v = velocity * 16; // convert to px per frame (~16ms)
+
+    function momentumStep() {
+      if (Math.abs(v) < 0.5) {
+        // Momentum finished, resume marquee auto-scroll
+        // Sync scrollPos in the marquee with current position
+        const finalX = getCurrentTranslateX();
+        // Update the marquee's scrollPos variable via a custom event
+        marqueeOuter.dispatchEvent(new CustomEvent('momentumEnd', { detail: { translateX: finalX } }));
+        marqueeOuter.dataset.touchActive = 'false';
+        return;
+      }
+      v *= friction;
+      currentTranslateX += v;
+      marqueeTrack.style.transform = 'translateX(' + currentTranslateX + 'px)';
+      momentumRaf = requestAnimationFrame(momentumStep);
+    }
+
+    momentumStep();
+  }, { passive: true });
+
+  // Hook into the marquee auto-scroll: pause when touch is active
+  // Patch the existing marquee step function
+  const origStep = marqueeOuter._marqueeStep;
+  // We need to integrate with the existing marquee. Override the paused flag.
+  // The existing marquee uses mouseenter/mouseleave and touchstart/touchend to set paused.
+  // We'll listen for our custom events to sync scrollPos after momentum.
+  marqueeOuter.addEventListener('momentumEnd', (e) => {
+    // Sync the scrollPos used by the auto-scroll marquee
+    // The auto-scroll marquee uses negative translateX, so scrollPos = -translateX
+    const finalX = e.detail.translateX;
+    // We expose a way to sync via a data attribute
+    marqueeOuter.dataset.syncScrollPos = String(-finalX);
+  });
+}

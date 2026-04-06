@@ -149,9 +149,14 @@ function smoothScrollTo(targetY, duration) {
 // ========== INITIALIZATION ==========
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Hard refresh always starts at the very top
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   initCookieBanner();
   initHeader();
   initMobileNav();
+  initBackInterceptor();
   renderReviews();
   initMarquee();
   renderFAQ();
@@ -199,6 +204,13 @@ function initHeader() {
       header.style.boxShadow = 'none';
     }
 
+    // Hide on scroll-down, show on scroll-up
+    if (scrollY > 120 && scrollY > lastScroll) {
+      header.style.transform = 'translateY(-100%)';
+    } else {
+      header.style.transform = 'translateY(0)';
+    }
+
     lastScroll = scrollY;
   }, { passive: true });
 
@@ -240,6 +252,39 @@ function closeMobileNav() {
   document.getElementById('hamburger').classList.remove('open');
   document.getElementById('mobileNav').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ========== BACK BUTTON INTERCEPTOR ==========
+// 1st press: close modal/mobile-nav if open
+// 2nd press: scroll to top
+// 3rd press: browser navigates away
+
+function initBackInterceptor() {
+  history.pushState({ __fh: true }, '');
+
+  window.addEventListener('popstate', function() {
+    // Any modal open? Close it first
+    var openModals = document.querySelectorAll('.modal-overlay.open');
+    if (openModals.length > 0) {
+      openModals.forEach(function(m) { m.classList.remove('open'); });
+      document.body.style.overflow = '';
+      history.pushState({ __fh: true }, '');
+      return;
+    }
+    // Mobile nav open? Close it first
+    var mobileNav = document.getElementById('mobileNav');
+    if (mobileNav && mobileNav.classList.contains('open')) {
+      closeMobileNav();
+      history.pushState({ __fh: true }, '');
+      return;
+    }
+    // Not at top? Scroll up
+    if (window.scrollY > 50) {
+      smoothScrollTo(0, 600);
+      history.pushState({ __fh: true }, '');
+    }
+    // Already at top → do nothing, browser navigates away
+  });
 }
 
 // ========== REVIEWS MARQUEE ==========

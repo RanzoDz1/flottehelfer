@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initBackInterceptor();
   renderReviews();
-  initMarquee();
+  initReviewsCarousel();
   renderFAQ();
   initScrollAnimations();
   initFloatingQuoteBtn();
@@ -304,63 +304,48 @@ function renderReviews() {
   `).join('');
 }
 
-function initMarquee() {
-  const marqueeOuter = document.getElementById('marqueeOuter');
-  const marqueeTrack = document.getElementById('marqueeTrack');
-  if (!marqueeTrack || !marqueeOuter) return;
+function initReviewsCarousel() {
+  var track = document.getElementById('marqueeTrack');
+  if (!track) return;
 
-  // Clone cards for seamless loop
-  const origCards = [...marqueeTrack.children];
-  origCards.forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    marqueeTrack.appendChild(clone);
+  var leftBtn = document.querySelector('.reviews-arrow.left');
+  var rightBtn = document.querySelector('.reviews-arrow.right');
+
+  function getScrollAmount() {
+    var card = track.querySelector('.review-card');
+    if (!card) return track.clientWidth;
+    var gap = parseFloat(window.getComputedStyle(track).gap) || 24;
+    return card.offsetWidth + gap;
+  }
+
+  function updateArrows() {
+    if (!leftBtn || !rightBtn) return;
+    leftBtn.classList.toggle('hidden', track.scrollLeft <= 2);
+    rightBtn.classList.toggle('hidden', track.scrollLeft >= track.scrollWidth - track.clientWidth - 2);
+  }
+
+  if (leftBtn) leftBtn.addEventListener('click', function() {
+    track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+    clearInterval(autoTimer);
+  });
+  if (rightBtn) rightBtn.addEventListener('click', function() {
+    track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    clearInterval(autoTimer);
   });
 
-  let scrollPos = 0;
-  const SPEED = 0.5;
-  let paused = false;
-  let rafId;
+  track.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  setTimeout(updateArrows, 300);
 
-  function getHalfWidth() {
-    const cards = marqueeTrack.querySelectorAll('.review-card:not([aria-hidden])');
-    let w = 0;
-    cards.forEach(c => { w += c.offsetWidth + 24; }); // 24 = gap
-    return w;
-  }
-
-  let halfWidth = getHalfWidth();
-  window.addEventListener('resize', () => { halfWidth = getHalfWidth(); });
-
-  function step() {
-    // Check if touch momentum is active
-    var touchActive = marqueeOuter.dataset.touchActive === 'true';
-
-    // Sync scrollPos after momentum ends
-    if (marqueeOuter.dataset.syncScrollPos) {
-      scrollPos = parseFloat(marqueeOuter.dataset.syncScrollPos);
-      if (scrollPos < 0) scrollPos = 0;
-      if (halfWidth > 0 && scrollPos >= halfWidth) scrollPos = scrollPos % halfWidth;
-      delete marqueeOuter.dataset.syncScrollPos;
+  var autoTimer = setInterval(function() {
+    if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
     }
+  }, 4500);
 
-    if (!paused && !touchActive && halfWidth > 0) {
-      scrollPos += SPEED;
-      if (scrollPos >= halfWidth) scrollPos -= halfWidth;
-      marqueeTrack.style.transform = `translateX(-${scrollPos}px)`;
-    }
-    rafId = requestAnimationFrame(step);
-  }
-
-  marqueeOuter.addEventListener('mouseenter', () => { paused = true; });
-  marqueeOuter.addEventListener('mouseleave', () => { paused = false; });
-  // Touch pause is now handled by the momentum system via dataset.touchActive
-  marqueeOuter.addEventListener('touchstart', () => { paused = true; }, { passive: true });
-  marqueeOuter.addEventListener('touchend', () => {
-    setTimeout(() => { paused = false; }, 2000);
-  }, { passive: true });
-
-  step();
+  track.addEventListener('touchstart', function() { clearInterval(autoTimer); }, { passive: true });
 }
 
 // ========== FAQ ACCORDION ==========

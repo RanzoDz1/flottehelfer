@@ -535,8 +535,12 @@
 
   <script>
     // ========== AUTH ==========
+    // Client-side check only — NOT real auth. Replace with Netlify Identity
+    // or a serverless function for anything sensitive.
+    // TODO: change CHANGE_ME_BEFORE_DEPLOY to a strong password before deploying.
+    // Do not commit the deployed value to a public repo.
     const ADMIN_USER = 'admin';
-    const ADMIN_PASS = '***REMOVED***';
+    const ADMIN_PASS = 'CHANGE_ME_BEFORE_DEPLOY';
 
     function handleLogin(e) {
       e.preventDefault();
